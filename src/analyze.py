@@ -1,7 +1,7 @@
 import sys
 import os
 
-DEBUG = True
+DEBUG = False 
 
 parsing_table = {
     'S': {
@@ -38,6 +38,7 @@ parsing_table = {
 
 
 def analyze(s: str):
+    global DEBUG
     i = 0
     expr_stack = [ 'S' ]
 
@@ -72,15 +73,18 @@ def analyze(s: str):
 
 
 def main(argv):
-    if len(argv) < 3:
+    global DEBUG
+
+    if len(argv) < 2:
         return 1
 
     if argv[1] == '-g':
         DEBUG = True
         print(f'Result: {analyze(argv[2] + '$')}')
-    else:
-        DEBUG = False
-        print(f'Result: {analyze(argv[1] + '$')}')
+        return 0
+
+    DEBUG = False
+    print(f'Result: {analyze(argv[1] + '$')}')
 
     return 0
 
